@@ -1029,7 +1029,15 @@
         }
 
         function copyMagnet(magnetLink = null) {
-            const magnet = decodeURIComponent(magnetLink) || (currentArtist ? currentArtist.magnet : '');
+            const magnet = (magnetLink !== null) 
+                ? decodeURIComponent(magnetLink) 
+                : (currentArtist ? currentArtist.magnet : '');
+
+            if (!magnet) {
+                showToast('Magnet link not available', 'fas fa-exclamation-triangle');
+                return;
+            }
+
             navigator.clipboard.writeText(magnet).then(() => {
                 showToast('Magnet link copied!', 'fas fa-check-circle');
             }).catch(() => {
