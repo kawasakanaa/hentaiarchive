@@ -695,8 +695,11 @@
         let currentArtist = null;
 
         const artistDirectories = [
-            'Aseiusx'
-
+            'Aseiusx',
+            'Kajin',
+            'Speedosausage',
+            'BlushySpicy',
+            'Aetherionart'
         ];
 
         function initLogos() {
@@ -864,7 +867,7 @@
                         </div>
                         ${tagsHTML}
                         <div class="download-actions">
-                            <button class="download-btn" onclick="event.stopPropagation(); downloadTorrent('${artist.torrent}')">
+                            <button class="download-btn" onclick="event.stopPropagation(); downloadTorrent('${artist.torrent}', '${artist.artistDir}')">
                                 <i class="fas fa-download"></i>
                                 Torrent
                             </button>
@@ -1003,7 +1006,7 @@
             document.body.style.overflow = 'hidden'; 
         }
 
-        function downloadTorrent(torrentFile = null) {
+        function downloadTorrent(torrentFile = null, artistDirParam = null) {
             const file = torrentFile || (currentArtist ? currentArtist.torrent : null);
 
             if (!file) {
@@ -1011,7 +1014,10 @@
                 return;
             }
 
-            const artistDir = currentArtist ? currentArtist.artistDir : 'unknown';
+            // Usa o diretório passado como parâmetro (artistDirParam), 
+            // ou o do artista atual (se o modal estiver aberto), 
+            // ou "unknown" como último recurso.
+            const artistDir = artistDirParam || (currentArtist ? currentArtist.artistDir : 'unknown');
             const torrentPath = `artists/${artistDir}/${file}`;
 
             console.log('Downloading torrent from:', torrentPath);
